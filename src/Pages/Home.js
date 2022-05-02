@@ -1,7 +1,18 @@
+import { useEffect, useState } from "react";
 import "../App.css";
 import Book from "../Components/Book";
+import * as BookApi from "../BooksAPI";
 
 function Home() {
+  const [data, setData] = useState([]);
+  console.log(data);
+  useEffect(() => {
+    return () => {
+      BookApi.getAll().then((item) =>
+        setData((prevValue) => [...prevValue, item])
+      );
+    };
+  }, []);
   return (
     <div className="list-books">
       <div className="list-books-title">
