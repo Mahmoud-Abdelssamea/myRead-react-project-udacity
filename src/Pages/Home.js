@@ -12,7 +12,6 @@ function Home() {
   useEffect(() => {
     return () => {
       BookApi.getAll().then((item) => {
-        console.log("all books", item);
         setData(item);
       });
     };
