@@ -21,6 +21,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 #### website provide 3 shelfs (currently reading, want to read, read) and you can search for the book
 
-#### by using search page `/search` by clicking on the button (+) and then add any book to favorite category
+#### by using search page `/search` by clicking on the button (+) on Home page and then add any book to favorite category 
+#### and you can shift books between shelfs or remove it from shelf
 
 ###
