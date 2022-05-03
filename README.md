@@ -1,4 +1,4 @@
-# Getting Started
+# Getting Started with My Read website
 
 you can get it by clone it from this link (`https://github.com/Mahmoud-Abdelssamea/myRead-react-project-udacity.git`)
 
