@@ -1,7 +1,7 @@
 import React from "react";
 import "../App.css";
 
-function Book({ book }) {
+function Book({ book, changeHandler }) {
   return (
     <li>
       <div className="book">
@@ -15,7 +15,12 @@ function Book({ book }) {
             }}
           />
           <div className="book-shelf-changer">
-            <select defaultValue={book.shelf} onChange={(e) => {}}>
+            <select
+              value={book.shelf}
+              onChange={(e) => {
+                changeHandler(e, book);
+              }}
+            >
               <option value="move" disabled>
                 Move to...
               </option>

@@ -6,15 +6,39 @@ import { Link } from "react-router-dom";
 
 function Home() {
   const [data, setData] = useState([]);
-  console.log(data);
+  const [updatedData, setUpdatedData] = useState({});
+
+  // set effect to get all data in after first render
   useEffect(() => {
     return () => {
       BookApi.getAll().then((item) => {
-        console.log(item);
+        console.log("all books", item);
         setData(item);
       });
     };
   }, []);
+
+  // set the effect after every update in the shelf for every book
+  useEffect(() => {
+    // first update the book's shelf
+    const update = async () => {
+      await BookApi.update(updatedData.book, updatedData.shelf);
+
+      // second get all books again from database
+      await BookApi.getAll().then((item) => {
+        setData(item);
+      });
+    };
+    // prevent the update function from rendering after first render
+    if (updatedData.shelf !== undefined) {
+      update();
+    }
+  }, [updatedData]);
+
+  //a function to  handle the shelf change for every book as it give us the event and the book data to update.
+  const changeHandler = (e, book) => {
+    setUpdatedData({ book: book, shelf: e.target.value });
+  };
   return (
     <div className="list-books">
       <div className="list-books-title">
@@ -29,7 +53,11 @@ function Home() {
                 {data
                   .filter((item) => item.shelf === "currentlyReading")
                   .map((item) => (
-                    <Book book={item} key={item.id} />
+                    <Book
+                      book={item}
+                      changeHandler={changeHandler}
+                      key={item.id}
+                    />
                   ))}
               </ol>
             </div>
@@ -41,7 +69,11 @@ function Home() {
                 {data
                   .filter((item) => item.shelf === "wantToRead")
                   .map((item) => (
-                    <Book book={item} key={item.id} />
+                    <Book
+                      book={item}
+                      changeHandler={changeHandler}
+                      key={item.id}
+                    />
                   ))}
               </ol>
             </div>
@@ -53,7 +85,11 @@ function Home() {
                 {data
                   .filter((item) => item.shelf === "read")
                   .map((item) => (
-                    <Book book={item} key={item.id} />
+                    <Book
+                      book={item}
+                      changeHandler={changeHandler}
+                      key={item.id}
+                    />
                   ))}
               </ol>
             </div>
